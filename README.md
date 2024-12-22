@@ -22,7 +22,7 @@ php artisan db:seed
 ```
 ## Relacionamento HasManyThrough no Filament
 - [Relacionamento HasManyThrough no Filament](https://youtu.be/_asXcJsQrFU?si=9q3ByZ5VRGbbvvvN)
-* <img src="./imagens/figura1.jpg" alt="Fgura 1" width="300">
+![Relacionamento](/imagens/figura1.jpg)
 ## Descrição
 - 3 model: User, Projetos e Tarefas
 - Um usuário poderá ter um ou mais projetos (relacionamento has)
@@ -47,5 +47,48 @@ php artisan db:seed
 # Criar estrutura para Projetos e Tarefas
 ```sh
 php artisan make:model Project -m
+# editar migration
+```
+![migration project](/imagens/figura2.png)
+```sh
 php artisan make:model Task -m
-#
+# editar migration
+```
+![migration task](/imagens/figura3.png)
+```sh
+# editar model User, Project e Task
+```
+-  Model User
+
+![model User](/imagens/figura4.png)
+
+-  Model Project
+
+![model Project](/imagens/figura5.png)
+
+-  Model TaskTask
+
+![model Task](/imagens/figura6.png)
+ 
+ ## Resumindo
+ - User -> HasMany -> Project -> HasMany -> Task
+ - Task -> BelongsTo -> Project -> BelongsTo -> User
+
+ ## Relacionamento HasManyThrough User, Project e Task
+ - User -> HasManyThrough: Classe Task (alvo), Classe Project (caminho)
+ - O primeiro parâmetro é o alvo e o segunndo parâmetro é o caminho
+
+![HasManyThrough](/imagens/figura7.png)
+
+## execução
+```sh
+php artisan migrate
+php artisan make:filament-resource Task --generate --simple # simple gera os modais
+php artisan make:filament-resource Project --generate --simple # simple gera os modais
+```
+## Criar Relacionamento Manager
+```sh
+php artisan make:filament-relation-manager
+# UserResource, tasks, name
+```
+![UserResource](/imagens/figura8.png)
